@@ -3,7 +3,7 @@ import threading
 
 print_lock = threading.Lock()
 
-
+"""сканирует порт с номером port по указанному ip на указанный type_protocol тип проктокола TCP или UDP"""
 def scan_port(ip, port, type_protocol):
     sock = None
 
@@ -27,18 +27,21 @@ def scan_port(ip, port, type_protocol):
         pass
 
 
+"""сканирование tcp портов"""
 def scan_tcp_ports(ip, range_port_nums):
     for i in range_port_nums:
         thread = threading.Thread(target=scan_port, args=(ip, i, "TCP"))
         thread.start()
 
 
+"""сканирование udp портов"""
 def scan_udp_ports(ip, range_port_nums):
     for i in range_port_nums:
         thread = threading.Thread(target=scan_port, args=(ip, i, "UDP"))
         thread.start()
 
 
+"""запускает сканирование upd и tcp портов для указанного ip в диапазоне ip, range_port_nums"""
 def start_port_scanner(ip, range_port_nums):
     scan_tcp_ports(ip, range_port_nums)
     scan_udp_ports(ip, range_port_nums)
